@@ -353,6 +353,110 @@
         console.log(calculateNumberOfGames(4)); // 6
         console.log(calculateNumberOfGames(10)); // 45
 
+        // 連休の天気
+        function daysOfGoOut(s) {
+            const array = s.split(' ');
+            const going_out_array = [];
+            const home_array = [];
+            // 降水確率30%の日を取得
+            /* const result = array.filter(function (value) {
+                return value <= 30;
+            }) */
+            for (let i = 0; i < array.length; i++) {
+                if (array[i] <= 30) {
+                    going_out_array.push('going_out');
+                } else {
+                    home_array.push('home');
+                }
+            }
+            return going_out_array.length;
+        }
+
+        console.log(daysOfGoOut("13 0 15 30 89 100 30")); // 5
+        console.log(daysOfGoOut("0 14 18 22 0 2 4")); // 7
+        console.log(daysOfGoOut("99 99 99 99 99 99 99")); // 0
+
+        // 正三角形かどうか
+        function isEquilateralTriangle(s) {
+            const array = s.split(' ');
+            //everyで全ての値が等しいか判定
+            if (array.every(v => v === array[0])) {
+                return 'yes';
+            } else {
+                return 'No';
+            }
+        }
+
+        console.log(isEquilateralTriangle("10 10 10")); // yes
+        console.log(isEquilateralTriangle("3 4 5")); // No
+
+        // 天気の表示
+        function showWeather(n) {
+            if (n <= 30) {
+                return 'sunny';
+            } else if (n >= 31 && n <= 70) {
+                return 'cloudy';
+            } else {
+                return 'rainy';
+            }
+        }
+
+        console.log(showWeather(31)); // cloudy
+        console.log(showWeather(2)); // sunny
+        console.log(showWeather(71)); // rainy
+
+        //はじめまして
+        function greet(s1, s2) {
+            if (s2 == 'M') {
+                return 'Hi, Mr.' + s1;
+            } else {
+                return 'Hi, Ms.' + s1;
+            }
+        }
+
+        console.log(greet("Stroheim", "M")); // Hi, Mr.Stroheim
+        console.log(greet("Trish", "F")); // Hi, Ms.Trish
+
+        // 通知表
+        function convertNumberToAlphabet(s) {
+            const result = s.replace(/5/g, 'A').replace(/4/g, 'B').replace(/3/g, 'C').replace(/2/g, 'D').replace(/1/g, 'E');
+            return result;
+        }
+
+        console.log(convertNumberToAlphabet("53342")); // ACCBD
+        console.log(convertNumberToAlphabet("22222")); // DDDDD
+        console.log(convertNumberToAlphabet("51111")); // AEEEE
+
+        // 不思議なタマゴ
+        function getNumberOfSteps(s) {
+            // ("1 2 5")を->("1", "2", "5")に変換
+            const array = s.split(' ');
+            // // ("1", "2", "5")を->(1, 2, 5)に変換
+            // const number_array = array.join(); //NaNが返ってくる
+            const max_array = Math.max(...array);
+            return max_array;
+        }
+
+        console.log(getNumberOfSteps("1 2 5")); // 5
+        console.log(getNumberOfSteps("2 5 5")); // 5
+        console.log(getNumberOfSteps("1 2 1")); // 2
+
+        //台風の間隔
+        function getInterval(s) {
+            let array = s.split(' ');
+            let result = '';
+
+            for (let i = 0; i < array.length; i++) {
+                result += Number(array[i]) - Number(array[i + 1]) + ' ';
+            }
+            return result;
+        }
+
+        console.log(getInterval("5 8 19 25 31")); // 3 11 6 6
+        console.log(getInterval("2 3 7 9 28")); // 1 4 2 19
+
+
+
 
 
 
