@@ -446,14 +446,44 @@
             let array = s.split(' ');
             let result = '';
 
-            for (let i = 0; i < array.length; i++) {
-                result += Number(array[i]) - Number(array[i + 1]) + ' ';
+            for (let i = 0; i < array.length - 1; i++) {
+                result += Number(array[i + 1]) - Number(array[i]) + ' ';
             }
             return result;
         }
 
         console.log(getInterval("5 8 19 25 31")); // 3 11 6 6
         console.log(getInterval("2 3 7 9 28")); // 1 4 2 19
+
+        // 〇〇の秋
+        function getAutumn(s) {
+            return s.replace('noaki', '');
+        }
+
+        console.log(getAutumn("codenoaki")); // code
+        console.log(getAutumn("dokusyo")); // dokusyo
+        console.log(getAutumn("javascriptnoaki")); // javascript
+
+        // お月見だんご
+        function getNumberOfDango(s) {
+            let array = s.split(' ');
+            // return array;
+            let sum = 0;
+            array.forEach(element => {
+                if (Number(element) >= 5) {
+                    sum += 5;
+                } else {
+                    sum += Number(element);
+                }
+            });
+
+            return sum;
+
+        }
+
+        console.log(getNumberOfDango("3 50")); // 8
+        console.log(getNumberOfDango("100 500")); // 10
+        console.log(getNumberOfDango("2 4")); // 6
 
 
 
