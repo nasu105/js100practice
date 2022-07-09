@@ -648,6 +648,388 @@
 
         console.log(outputProfile(hatena)); //  情報がありません
 
+        // お買い物リスト
+        function combineArray(a, b) {
+            return return_array = [...a, ...b];
+        }
+
+        const abc = ["a", "b", "c"];
+        const def = ["d", "e", "f"];
+
+        console.log(combineArray(abc, def)); //["a", "b", "c", "d", "e", "f"]
+
+        const gen = ["米", "トイレットペーパー", "ちゅーる", "酒"];
+        const yui = ["洗剤", "肉", "ブロッコリー"];
+
+        console.log(combineArray(gen, yui)); // ["米", "トイレットペーパー", "ちゅーる", "酒", "洗剤", "肉", "ブロッコリー"]
+
+        // 成績を晒す
+        function createBadScoreArray(a) {
+            const array = a.split(' ');
+            let result = '';
+            const small_array = array.sort((first, second) => first - second);
+            for (let i = 0; i < array.length; i++) {
+                result += Number(small_array[0 + i]) + ' ';
+            }
+            return result;
+        }
+
+        console.log(createBadScoreArray("15 8 9 100 26 1")); // 1 8 9 15 26 100
+        console.log(createBadScoreArray("50 15 89 5 61 2 44")); // 2 5 15 44 50 61 89
+
+        // 特定の文字列を含むか
+        function containStrings(str1, str2) {
+            return str1.includes(str2);
+        }
+
+        const a = "あけましておめでとうございます";
+        const b = "おめでとう";
+        console.log(containStrings(a, b)); // true
+
+        const c = "Love the life you live. Live the life you love.";
+        const d = "best";
+        console.log(containStrings(c, d)); // false
+
+        // アンケートデータの作成
+        function createObject(a, b) {
+            const obj =
+            {
+                name: a,
+                age: b,
+            };
+            return obj;
+        }
+
+        console.log(createObject("ichiro", 20)); // { name: "ichiro", age: 20, }
+        console.log(createObject("momoko", 22)); // { name: "momoko", age: 22, }
+
+        // ランダムに挨拶
+        function randomGreet(a, b, c) {
+            const randomNumber = Math.floor(Math.random() * 3);
+            // console.log(randomNumber);
+            if (randomNumber == 0) {
+                return a;
+            } else if (randomNumber == 1) {
+                return b;
+            } else {
+                return c;
+            }
+        }
+        console.log(randomGreet("おはよう", "こんにちは", "こんばんは")); // おはようorこんにちはorこんばんは
+        console.log(randomGreet("Hi!", "Hello!", "Bye!")); // Hi! or Hello! or Bye!
+
+        // オブジェクトの並び替え
+        function sortObject(obj) {
+            let result = [];
+            let array = obj.sort((a, b) => {
+                return (a.id < b.id) ? -1 : 1; // オブジェクトの昇順ソート
+            })
+            for (let i = 0; i < array.length; i++) {
+                // console.log(i)
+                // let id = array[i].id;
+                // let name = array[i].name;
+                // let age = array[i].age;
+                result += array[i].id + ':' + array[i].name + '(' + array[i].age + ')' + ',';
+            }
+            return result;
+
+        }
+
+        const objectArray1 = [
+            {
+                id: 8,
+                name: "Emily",
+                age: 29,
+            },
+            {
+                id: 1,
+                name: "John",
+                age: 22,
+            },
+            {
+                id: 4,
+                name: "Bob",
+                age: 30,
+            },
+        ];
+
+        console.log(sortObject(objectArray1)); // 1:John(22),4:Bob(30),8:Emily(29)
+
+        const objectArray2 = [
+            {
+                id: 10,
+                name: "taro",
+                age: 29,
+            },
+            {
+                id: 112,
+                name: "hanako",
+                age: 22,
+            },
+            {
+                id: 40,
+                name: "pochi",
+                age: 3,
+            },
+        ];
+
+        console.log(sortObject(objectArray2)); // 10:taro(29),40:pochi(3),112:hanako(22)
+
+        // 名前しかいらん
+        function createNameArray(array) {
+            let result = [];
+            for (let i = 0; i < array.length; i++) {
+                result.push(array[i].name)
+            }
+            return result;
+        }
+
+        const objectArray3 = [
+            {
+                id: 8,
+                name: "Emily",
+                age: 29,
+            },
+            {
+                id: 1,
+                name: "John",
+                age: 22,
+            },
+            {
+                id: 4,
+                name: "Bob",
+                age: 30,
+            },
+        ];
+
+        console.log(createNameArray(objectArray3)); // ["John", "Emily", "Bob"]
+
+        const objectArray4 = [
+            {
+                id: 10,
+                name: "taro",
+                age: 29,
+            },
+            {
+                id: 112,
+                name: "hanako",
+                age: 22,
+            },
+            {
+                id: 40,
+                name: "pochi",
+                age: 3,
+            },
+        ];
+        console.log(createNameArray(objectArray4)); // ["pochi", "hanako", "taro"]
+
+        // メール一斉送信
+        function filterUnder25Array(array) {
+            let result = [];
+            for (let i = 0; i < array.length; i++) {
+                if (array[i].age < 25) {
+                    result.push(array[i].id);
+                } else {
+                    false;
+                }
+            }
+            return result;
+        }
+
+        const objectArray5 = [
+            {
+                id: 8,
+                name: "Emily",
+                age: 29,
+            },
+            {
+                id: 1,
+                name: "John",
+                age: 22,
+            },
+            {
+                id: 4,
+                name: "Bob",
+                age: 30,
+            },
+        ];
+
+        console.log(filterUnder25Array(objectArray5)); // [1]
+
+        const objectArray6 = [
+            {
+                id: 10,
+                name: "taro",
+                age: 29,
+            },
+            {
+                id: 112,
+                name: "hanako",
+                age: 22,
+            },
+            {
+                id: 40,
+                name: "pochi",
+                age: 3,
+            },
+        ];
+
+        console.log(filterUnder25Array(objectArray6)); // [112, 40]
+
+        // 予算オーバー
+        function canTakeThis(arr) {
+            let sum = 0;
+            // それぞれの金額を足してsumに代入
+            for (let i = 0; i < arr.length; i++) {
+                sum += Number(arr[i].count) * Number(arr[i].price);
+            }
+            // console.log(sum);
+            if (sum <= 114514) {
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+        const tarosCart = [
+            {
+                id: 8,
+                name: "Yoich",
+                price: 5800,
+                count: 2,
+            },
+            {
+                id: 1,
+                name: "Yamasaki30",
+                price: 3000000,
+                count: 1,
+            },
+            {
+                id: 4,
+                name: "Chita",
+                price: 3600,
+                count: 1,
+            },
+        ];
+
+        console.log(canTakeThis(tarosCart)); // false
+
+        const hanakosCart = [
+            {
+                id: 10,
+                name: "ひまわり",
+                price: 280,
+                count: 3,
+            },
+            {
+                id: 112,
+                name: "かすみ草",
+                price: 220,
+                count: 2,
+            },
+            {
+                id: 40,
+                name: "ガーベラ",
+                price: 110,
+                count: 5,
+            },
+        ];
+        console.log(canTakeThis(hanakosCart)); // true
+
+        // トランプ占い
+        function divinationCheat(s) {
+            const result = s.split(' ');
+            if (result[0] && result[1] != 'J') {
+                return result[0] + ' ' + result[1];
+            } else {
+                return 'J Q';
+            }
+        }
+
+        console.log(divinationCheat("K Q")); // K Q
+        console.log(divinationCheat("J Q")); // J Q
+        console.log(divinationCheat("J J")); // J Q
+
+        // AボタンとBボタン
+        function placeCount(s) {
+            const array = s.split(' ');
+            let sum = 0;
+            return sum += array[0] - array[1];
+        }
+
+        console.log(placeCount("3 4")); // -1
+        console.log(placeCount("80 44")); // 36
+
+        // 3倍返し
+        function deathWhiteDay(n) {
+            sum = 0;
+            if (n == 0) {
+                return sum += 1;
+            } else {
+                return sum += n * 3;
+            }
+        }
+
+        console.log(deathWhiteDay(1)); // 3
+        console.log(deathWhiteDay(99)); // 297
+        console.log(deathWhiteDay(0)); // 1
+
+        // Leet文字列
+        function convertLeet(s) {
+            const result = s.replace(/A/g, '4').replace(/E/g, '3').replace(/G/g, '6').replace(/I/g, '1').replace(/O/g, '0').replace(/S/g, '5').replace(/Z/g, '2');
+            return result;
+        }
+
+        console.log(convertLeet("ALANTURING")); // 4L4NTUR1N6
+        console.log(convertLeet("GSACADEMY")); // 654C4D3MY
+
+        // 完全数とほぼ完全数
+        function isPerfectNumber(s) {
+            let arrBox = 0;
+            let result = [];
+            let final_result = [];
+            const array_s = s.split(' ');
+            // console.log(array_s);
+            for (let j = 0; j < array_s.length; j++) {
+                // console.log(array_s[j]);
+                // 約数の和を計算
+                for (let i = 1; i <= array_s[j]; i++) {
+                    if (array_s[j] % i == 0) {
+                        arrBox += i;
+                    }
+                }
+                // console.log(array_s[j]);
+                result.push(arrBox); // 約数の和をresultに代入
+                // 判定を行う
+                if (result[j] - array_s[j] == array_s[j]) {
+                    final_result.push('perfect');
+                } else if (result[j] - array_s[j] - array_s[j] == Math.abs(1)) {
+                    final_result.push('nearly');
+                } else {
+                    final_result.push('neither');
+                }
+            }
+            console.log(result);
+            return final_result;
+
+        }
+
+        console.log(isPerfectNumber("28 16 777")); // perfect nearly neither
+        console.log(isPerfectNumber("3 4 5 6")); // neither nearly neither perfect
+
+        let sumsum = 0;
+        for (let l = 1; l <= 16; l++) {
+            if (16 % l == 0) {
+                sumsum += l;
+            }
+        }
+        console.log(sumsum);
+
+
+
+
+
+
 
 
 
