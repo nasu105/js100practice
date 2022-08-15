@@ -985,59 +985,357 @@
 
         // 完全数とほぼ完全数
         function isPerfectNumber(s) {
-            let arrBox = 0;
-            let result = [];
-            let final_result = [];
+            let divisor_num = [];
+            let result = '';
             const array_s = s.split(' ');
             // console.log(array_s);
             for (let j = 0; j < array_s.length; j++) {
-                // console.log(array_s[j]);
+                divisor_num.push(0); // [0, 0, ...]の配列を作る
                 // 約数の和を計算
                 for (let i = 1; i <= array_s[j]; i++) {
                     if (array_s[j] % i == 0) {
-                        arrBox += i;
+                        divisor_num[j] += i;
                     }
                 }
-                // console.log(array_s[j]);
-                result.push(arrBox); // 約数の和をresultに代入
                 // 判定を行う
-                if (result[j] - array_s[j] == array_s[j]) {
-                    final_result.push('perfect');
-                } else if (result[j] - array_s[j] - array_s[j] == Math.abs(1)) {
-                    final_result.push('nearly');
+                if (divisor_num[j] - array_s[j] == array_s[j]) {
+                    // result.push('perfect');
+                    result += 'pearfect '
+                } else if (Math.abs(divisor_num[j] - array_s[j] - array_s[j]) == 1) {
+                    // result.push('nearly');
+                    result += 'nearly '
                 } else {
-                    final_result.push('neither');
+                    // result.push('neither');
+                    result += 'neither '
                 }
             }
-            console.log(result);
-            return final_result;
+            // console.log(result);
+            return result;
 
         }
+
 
         console.log(isPerfectNumber("28 16 777")); // perfect nearly neither
         console.log(isPerfectNumber("3 4 5 6")); // neither nearly neither perfect
 
-        let sumsum = 0;
-        for (let l = 1; l <= 16; l++) {
-            if (16 % l == 0) {
-                sumsum += l;
+        // 単語テストの採点
+        function calculatePoint(s) {
+            const array_s = s.split(/,| /);
+            // console.log(array_s);
+            let answerArray = [];
+            let questionArray = [];
+            let sum = 0;
+            let comparision_sum = [];
+            for (let i = 0; i < array_s.length; i++) {
+                // 正解の解答と生徒の解答を、別の配列に入れていく
+                if (i % 2 == 0) {
+                    answerArray.push(array_s[i]);
+                } else {
+                    questionArray.push(array_s[i]);
+                }
+            }
+            const answer_length = answerArray.map(value => value.length);
+            const question_lenght = questionArray.map(value => value.length);
+            for (let j = 0; j < answerArray.length; j++) {
+                const answerSplit = [...answerArray[j]];
+                const questionSplit = [...questionArray[j]];
+                comparision_sum.push(0);
+                // console.log(answerSplit);
+                // console.log(answerSplit[0]);
+                // comparision_sumに間違いの数を入れていく
+                for (let k = 0; k < answer_length[j]; k++) {
+                    if (answerArray[j] == questionArray[j]) {
+                        comparision_sum[j] += 0;
+                    } else if (answer_length[j] == question_lenght[j] && answerSplit[k] != questionSplit[k]) {
+                        // console.log(answerSplit[j][k]);
+                        // console.log(questionSplit[j][k]);
+                        comparision_sum[j] += 1;
+                    } else if (answer_length[j] != question_lenght[j]) {
+                        comparision_sum[j] += 2;
+                    }
+                    // console.log(answerSplit[k]);
+                    // console.log(questionSplit[k]);
+                }
+                // console.log(answerArray[j]);
+                // console.log(questionArray[j]);
+                // console.log(comparision_sum[j]);
+                // console.log(answerSplit);
+                // console.log(questionSplit);
+                // console.log(answerSplit[0]);
+                // console.log(questionSplit);
+                if (comparision_sum[j] == 0) {
+                    sum += 2;
+                } else if (comparision_sum[j] == 1) {
+                    sum += 1;
+                } else {
+                    sum += 0;
+                }
+            }
+            // console.log(comparision_sum);
+            return sum;
+        }
+
+        console.log(calculatePoint("apple aple,orange olange,grape glepe,lemon lemon")); // 3
+        console.log(calculatePoint("january januarry,february febrary,march march,april aplil,may may,june june,july jury,august ougust,september septenber,october october,november novembar,december dicembar")); // 13
+
+  // 先生の宿題
+  function getAnswer(s) {
+      const question = s.split(' ');
+      // console.log(question);
+      const a = question[0];
+      const b = question[2];
+      const c = question[4];
+      // console.log(a);
+      const operator = question[1];
+      if (a == 'x' && operator == '+') {
+          return Number(c) - Number(b);
+      } else if (a == 'x' && operator == '-') {
+          return Number(b) + Number(c);
+      } else if (b == 'x' && operator == '+') {
+          return Number(c) - Number(a);
+      } else if (b == 'x' && operator == '-') {
+          return Number(a) - Number(c);
+      } else if (c == 'x' && operator == '+') {
+          return Number(a) + Number(b);
+      } else if (c == 'x' && operator == '-') {
+          return Number(a) - Number(b);
+      }
+  }
+
+  console.log(getAnswer("1 + 3 = x")); // 4
+  console.log(getAnswer("6 - x = 3")); // 3
+  console.log(getAnswer("x - 1 = 5")); // 6
+
+
+        /* function getAnswer(s) {
+            const question = s.split(' ');
+
+            const a = question[0];
+            const b = question[2];
+            const c = question[4];
+
+            // const isPlus = question[1] === '+';
+            // const isMinus = question[1] === '-';
+            const operator = question[1];
+
+            switch (true){
+                case a === 'x':
+                case isPlus:
+                    return c - b
+                    break;
+                case a === 'x':
+                case 
+                    break;
+                case b === 'x':
+                ~~
+                    break;
+                case c === 'x':
+                ~~
+                    break;
+
             }
         }
-        console.log(sumsum);
+
+    console.log(getAnswer("1 + 3 = x")); // 4
+    console.log(getAnswer("6 - x = 3")); // 3
+    console.log(getAnswer("x - 1 = 5")); // 6 */
 
 
+    // アニメの日時
+    function formatHour(s) {
+      const timeSplit = s.split(/[\/\| |:]/);
+      // console.log(timeSplit);
+      const hourChange_day = Math.floor(Number(timeSplit[2]) / 24);
+      // console.log(hourChange_day);
+      // const hour = Number(timeSplit[2]) - 24;
+      const hour = Number(timeSplit[2]) % 24;
+      const sumHour = hourChange_day + Number(timeSplit[1]);
+      const result0 = timeSplit[0] + '/' + sumHour + ' ' + '0' + hour + ':' + timeSplit[3];
+      const result1 = timeSplit[0] + '/' + sumHour + ' ' + hour + ':' + timeSplit[3];
+      if (hour.lnegth = 1) {
+        return result0;
+      } else{
+        return result1;
+      }
+    }
+
+    console.log(formatHour("01/27 24:30")); // 01/28 00:30
+    console.log(formatHour("02/31 73:59")); // 02/34 01:59
+    console.log(formatHour("12/31 00:00")); // 12/31 00:00
+    console.log(formatHour("12/31 25:01")); // 12/32 01:01
+
+    // コーヒー割引キャンペーン
+    function getCostForFreeCoffee(s) {
+      const array = s.split(' ');
+      let i = 0;
+      // let result_sum = 0;
+      // console.log(array);
+      // const discount = Math.floor(array[0] * (Number(array[1]) - 100)); 
+      const price = Number(array[0]); // 値段を数値に変換
+      const discount = 1 - (Number(array[1]) / 100); // 割引率
+      // const sum = Math.floor(price[i] * discount); // 商品購入時の値段計算
+      const result = [price];
+      // console.log(result);
+      // console.log(test);
+      while (Math.floor(result[i] * discount) != 0) {
+        result.push(Math.floor(result[i] * discount));
+        i++;
+        // console.log(result);
+      } 
+      // console.log(result);
+      const sum = result.reduce((element, accumulate) => element + accumulate)
+      return sum;
+    }
+
+    console.log(getCostForFreeCoffee("300 50")); // 596
+    console.log(getCostForFreeCoffee("1000 99")); // 1010
+
+    // エレベーター
+    function getElevatorMove(s) {
+      const array = s.split(' ');
+      let resultMove = [];
+      for (let i = 0; i < array.length - 1; i++) {
+        // console.log(Number(array[i + 1]));
+        if (Number(array[i]) > Number(array[i+1])) {
+          resultMove.push(Number(array[i]) - Number(array[i+1]));
+        } else {
+          resultMove.push(Number(array[i+1]) - Number(array[i]));
+        }
+      }
+      // console.log(resultMove);
+      const sum_resultMove = resultMove.reduce((element, accumulate) => element + accumulate);
+      return sum_resultMove + Number(array[0]) - 1;
+    }
+
+    console.log(getElevatorMove("3 1 4")); // 7
+    console.log(getElevatorMove("17 28 11 62 64 4 7 17")); // 170
+
+    // ゾロ目の日付
+    function isSingleNumber(s) {
+      const array = s.split(/ |/);
+      // console.log(array);
+      const result = array.every(value => value === array[0]);
+      if (result == true) {
+        return 'Yes';
+      } else {
+        return 'No';
+      }
+    }
+
+    console.log(isSingleNumber("11 1")); // Yes
+    console.log(isSingleNumber("11 11")); // Yes
+    console.log(isSingleNumber("12 11")); //  No
+
+    // 花見の準備
+    function judgeCheapSheet(s) {
+      const array = s.split(/,| /);
+      // console.log(array);
+      const area01 = array[0] * array[1];
+      const area02 = array[3] * array[4];
+      const sum01 = array[2] / area01;
+      const sum02 = array[5] / area02;
+      // console.log(sum01);
+      // console.log(sum02);
+      if (sum01 > sum02) {
+        return array[3] + ' ' + array[4] + ' ' + array[5];
+      } else if (sum01 < sum02) {
+        return array[0] + ' ' + array[1] + ' ' + array[2];
+      } else {
+        return 'DRAW';
+      }
+    }
+
+    console.log(judgeCheapSheet("5 18 1000,12 21 3000")); // 5 18 1000
+    console.log(judgeCheapSheet("5 5 1800,5 10 3600")); // DRAW
+
+    // 下一桁はいくつ
+    function getLastNumber(s) {
+      const array = s.split(' ');
+      const sum = array.reduce((element, accumulate) => Number(element) + Number(accumulate)); // 配列の数値を全部足す
+      // console.log(sum);
+      const str_sum = String(sum);
+      return str_sum.slice(-1);
+    }
+
+    console.log(getLastNumber("1 9 8 9 12")); // 9
+    console.log(getLastNumber("1 1 1 1 6")); // 0
+
+    // 門松の作成
+    function getAllLength(n) {
+      const sum = n / 3 * 15;
+      // console.log(sum);
+      return sum;
+    }
+
+    console.log(getAllLength(60)); // 300
+    console.log(getAllLength(9)); // 45
+
+    // 禁止ワード
+    function hasNgWord(s) {
+      const array = s.split(' ');
+      // console.log(array);
+      if (array[1].indexOf(array[0]) > -1) { // indexOfは部分一致する場合に0を返す。それ以外は-1を返す。
+        return 'NG'; 
+      } else {
+        return array[1];
+      }
+    }
+
+    console.log(hasNgWord("ngword thisisngword")); // NG
+    console.log(hasNgWord("ngword gsprogramming")); // gsprogramming
+
+    // 洗濯物と砂ぼこり
+    function canDry(s) {
+      const array = s.split(' ');
+      const temperature = Number(array[0]);
+      const humidity = Number(array[1]);
+      if (temperature >= 25 || humidity <= 40) {
+        if (temperature >= 25 && humidity <= 40) {
+          return 'No';
+        } else {
+          return 'Yes';
+        }
+      } else {
+        return 'No';
+      }
+    }
+
+    console.log(canDry("25 50")); // Yes
+    console.log(canDry("10 20")); // Yes
+    console.log(canDry("20 50")); // No
+
+    // カード並べ
+    function getBestScore(s) {
+      const array = s.split(' ');
+      const numberArray = array.map(Number); // 文字配列を数値配列に変換
+      const max = Math.max(...numberArray); // 一番大きい数を特定
+      const min = Math.min(...numberArray); // 一番小さい数を特定
+      // console.log(max);？
+      // console.log(min);
+
+      // 配列から1番目に大きい数、小さい数を削除
+      const maxIndex = numberArray.indexOf(max); 
+      const minIndex = numberArray.indexOf(min);
+      numberArray.splice(maxIndex, 1); // 配列から一番大きい数を削除
+      numberArray.splice(minIndex, 1); // 配列から一番小さい数を削除
+      // console.log(numberArray);
+
+      // 2番目に大きい数、小さい数を変数に代入
+      const nextMax = Math.max(...numberArray); 
+      const nextMin = Math.min(...numberArray);
+      
+      const str01 = String(max) + String(min); // 2桁の文字に変換
+      const str02 = String(nextMax) + String(nextMin); // 2桁の文字に変換
+      // console.log(str01);
+      // console.log(str02);
+      return Number(str01) + Number(str02);
+    }
+
+    console.log(getBestScore("2 9 3 8")); // 175
+    console.log(getBestScore("7 8 7 7")); // 164
 
 
-
-
-
-
-
-
-
-
-
-    </script>
+  </script>
 </body>
 
 </html>
