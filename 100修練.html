@@ -1334,6 +1334,76 @@
     console.log(getBestScore("2 9 3 8")); // 175
     console.log(getBestScore("7 8 7 7")); // 164
 
+    // ログのフィルター
+    function filterLogByKeyword(s) {
+      const array = s.split(/,| /);
+      const result = [];
+      const keyword = array[0];
+
+      // 一致した文字をresultにpush
+      for (let i = 0; i <= array.length -2; i++) {
+        const serchword = array[i+1];
+        // console.log(serchword);
+        if(serchword.indexOf(keyword) > -1) {
+          result.push(array[i+1]);
+        }
+      }
+      // console.log(result);
+      if (result.length > 0) {
+        return result[0] + ' ' + result[1] + ' ' + result[2];
+      } else {
+        return 'None';
+      }
+    }
+
+    console.log(
+      filterLogByKeyword("gs,gsacademytokyo javascript gsacademyfukuoka gsbase")
+    ); // gsacademytokyo gsacademyfukuoka gsbase
+    console.log(
+      filterLogByKeyword("script,javascript typescript googleappscript java")
+    ); // javascript typescript googleappscript
+    console.log(
+      filterLogByKeyword(
+        "dio,Giorno Bucciarati Abbacchio Mista Narancia Fugo Trish"
+      )
+    ); // None
+
+    // メールアドレス認証
+    function isValidEmail(str) {
+      const pattern = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]+.[.]+[A-Za-z0-9]+$/;
+      if (pattern.test(str)) {
+        return 'ture';
+      } else {
+        return 'false';
+      }
+      
+    }
+
+    console.log(isValidEmail("ccc@aaa.com")); // true
+    console.log(isValidEmail("c@cc@aaa.com")); // false
+    console.log(isValidEmail("cc c@aaa.com")); // false
+    console.log(isValidEmail("cc.c@aaacom")); // false
+    console.log(isValidEmail("cc.c@aaa.com")); // true
+    console.log(isValidEmail("@aaa.com")); // false
+
+    // フィボナッチ数列
+    function getFibonacciNth(n) {
+      let a = 1;
+      let b = 1;
+      for (let i = 3; i <= n; i++) {
+        let c = a + b;
+        a = b;
+        b = c;
+      }
+      return b;
+    }
+        
+
+    console.log(getFibonacciNth(1)); // 1
+    console.log(getFibonacciNth(5)); // 5
+    console.log(getFibonacciNth(10)); // 55
+    console.log(getFibonacciNth(90)); // 2880067194370816120
+    
 
   </script>
 </body>
